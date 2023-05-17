@@ -20,7 +20,7 @@ firebase.firestore().collection("users")
 })
 
   },[])
-  return(
+  return( 
     <SafeAreaView>
       <Text style={{fontSize:20,fontWeight:"bold"}}>
         Hello,{name.firstName}
