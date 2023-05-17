@@ -12,7 +12,7 @@ const Registration = () => {
     const[lastName,setLastName]=useState('')
 
     registerUser=async(email,password,firstName,lastName)=>{
-      await firebase.auth().createUserWithEmailAndPassword(email,password)
+      await firebase.auth().createUserWithEmailAndPassword(email.trim(),password)
       .then(()=>{
         firebase.auth().currentUser.sendEmailVerification({
           handleCodeInApp:true,
@@ -27,18 +27,20 @@ const Registration = () => {
           firebase.firestore().collection("users")
           .doc(firebase.auth().currentUser.uid)
           .set({
-            firstName,
-            lastName,
-            email,
+            firstName:firstName,
+            lastName:lastName,
+            email:email
           })
         })
-        .catch((error)=>{
-          alert(error.message)
+        .then(() => {
+          console.log("Veri başarıyla yazıldı.");
         })
+        .catch((error) => {
+          console.log("Hata:", error);
+        });
+
       })
-      .catch((error=>{
-        alert(error.message)
-      }))
+      
     }
     return(
       <View style={styles.container}>
@@ -48,7 +50,7 @@ const Registration = () => {
           <View style={{marginTop:40}}>
             <TextInput
             style={styles.TextInput}
-            placeholder='İsim'
+            placeholder='İsimm'
             onChangeText={(firstName)=>setFirstName(firstName)}
             autoCorrect={false}
             
@@ -56,13 +58,13 @@ const Registration = () => {
             <TextInput
             style={styles.TextInput}
             placeholder='Soy İsim'
-            onChangeText={(lastName)=>setFirstName(lastName)}
+            onChangeText={(lastName)=>setLastName(lastName)}
             autoCorrect={false}
            />
             <TextInput
             style={styles.TextInput}
             placeholder='Email'
-            onChangeText={(email)=>setFirstName(email)}
+            onChangeText={(email)=>setEmail(email)}
             autoCapitalize='none'
             autoCorrect={false}
            
@@ -70,7 +72,7 @@ const Registration = () => {
              <TextInput
             style={styles.TextInput}
             placeholder='Şifre'
-            onChangeText={(Password)=>setFirstName(Password)}
+            onChangeText={(Password)=>setPassword(Password)}
             autoCapitalize='none'
             autoCorrect={false}
             secureTextEntry
@@ -86,6 +88,6 @@ const Registration = () => {
       </View>
     )
 }
-
+    
 export default Registration
 

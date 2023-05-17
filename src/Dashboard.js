@@ -7,21 +7,24 @@ import {styles} from './style'
 
 const Dashboard = () => {
   const[name,setName]=useState('')
-  useEffect(()=>{
-firebase.firestore().collection("users")
-.doc(firebase.auth().currentUser.uid).get()
-.then((snapshot)=>{
-  if(snapshot.exists){
-    setName(snapshot.data)
-  }
-    else{
-      console.log('Kullanıcı bulunamadı')
-    }
-})
-
-  },[])
+  useEffect(() => {
+    firebase.firestore()
+      .collection("users")
+      .doc(firebase.auth().currentUser.uid)
+      .get()
+      .then((snapshot) => {
+        if (snapshot.exists) {
+          setName(snapshot.data());
+        } else {
+          console.log('Kullanıcı bulunamadı');
+        }
+      })
+      .catch((error) => {
+        console.log('Hata:', error);
+      });
+  }, []);
   return( 
-    <SafeAreaView>
+    <SafeAreaView style={styles.container}>
       <Text style={{fontSize:20,fontWeight:"bold"}}>
         Hello,{name.firstName}
       </Text>

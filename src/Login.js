@@ -9,13 +9,16 @@ const Login = () => {
     const [email,setEmail]=useState("");
     const [password,setPassword]=useState("");
     
-    loginUser=async(email,password)=>{
-        try{
-            await firebase.auth().signInWithEmailAndPassword(email,password)
-        }catch(error){
-            alert(error.message)
+    loginUser = async (email, password) => {
+       
+        try {
+          await firebase.auth().signInWithEmailAndPassword(email.trim(), password);
+          
+        } catch (error) {
+          alert(error.message);
         }
-    }
+      };
+    
 
     return(
         <View style={StyleSheet.container}>
