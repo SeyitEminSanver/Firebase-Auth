@@ -22,7 +22,7 @@ const Login = () => {
 
     return(
         <View style={StyleSheet.container}>
-            <Text style={{fontWeight:"bold",fontSize:26}}>
+            <Text style={{fontWeight:"bold",fontSize:20}}>
                 Giriş
             </Text>
             <View style={{marginTop:40}}>

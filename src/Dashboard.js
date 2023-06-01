@@ -4,9 +4,32 @@ import {firebase} from '../config'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import {styles} from './style'
+import { useNavigation } from '@react-navigation/native';
 
 const Dashboard = () => {
+  const navigation=useNavigation()
   const[name,setName]=useState('')
+  
+  //change password
+
+
+  const changePassword=()=>{
+    firebase.auth().sendPasswordResetEmail(firebase.auth().currentUser.email)
+    .then(()=>{
+      alert("Şifre sıfırlama mail yollandı")
+    }).catch((error)=>{
+      alert(error)
+    })
+  }
+  //forget password 
+  const forgetPasword=()=>{
+    firebase.auth().sendPasswordResetEmail(firebase.auth().currentUser.email)
+    .then(()=>{
+      alert("Şifre sıfırlama mail yollandı")
+    }).catch((error)=>{
+      alert(error)
+    })
+  }
   useEffect(() => {
     firebase.firestore()
       .collection("users")
@@ -24,18 +47,36 @@ const Dashboard = () => {
       });
   }, []);
   return( 
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <Text style={{fontSize:20,fontWeight:"bold"}}>
         Hello,{name.firstName}
       </Text>
       <TouchableOpacity
+      style={styles.button}
+      onPress={() => navigation.navigate('Category')}
+     
+      >
+        <Text style={{fontSize:20,fontWeight:"bold"}} >Kategorileri Listele</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
       onPress={()=>{firebase.auth().signOut()}}
-      stlye={styles.button}
+      style={styles.button}
       >
         <Text style={{fontSize:20,fontWeight:"bold"}}> Çıkış Yap</Text>
        
       </TouchableOpacity>
-    </SafeAreaView>
+      <TouchableOpacity
+        onPress={() =>{
+          changePassword();
+        
+        }}
+        style={styles.button}
+       
+      >
+        <Text style={{fontSize:20,fontWeight:"bold"}}> Şifre Degiştir</Text>
+       
+      </TouchableOpacity>
+    </View>
   )
 }
 

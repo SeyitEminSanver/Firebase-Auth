@@ -3,10 +3,12 @@ import {createStackNavigator} from "@react-navigation/stack"
 import React,{useState,useEffect} from 'react';
 import {firebase} from './config';
 
+
 import Login from './src/Login'
 import Dashboard from './src/Dashboard';
 import Registration from './src/Registration';
 import Header from './components/Header';
+import Category from "./src/Category";
 
 
 const Stack=createStackNavigator();
@@ -63,6 +65,7 @@ function App(){
     );
   }
 return (
+ 
   <Stack.Navigator>
   <Stack.Screen
         name="Dashboard" component={Dashboard}
@@ -78,9 +81,25 @@ return (
           }
         }}
         />
+        <Stack.Screen
+  name="Category"
+  component={Category}
+  options={{
+    headerTitle: () => <Header name="Category" />,
+    headerStyle: {
+      height: 150,
+      borderBottomLeftRadius: 50,
+      borderBottomRightRadius: 50,
+      backgroundColor: "#00e4d0",
+      shadowColor: "#000",
+      elevation: 25,
+    },
+  }}
+/>
   </Stack.Navigator>
 
 )
+
 }
 
 export default ()=>{

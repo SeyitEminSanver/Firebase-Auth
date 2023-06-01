@@ -12,7 +12,7 @@ export const styles =StyleSheet.create({
         paddingTop:20,
         paddingBottom:10,
         width:400,
-        fontSize:40,
+        fontSize:25,
         borderBottomWidth:1,
         borderBottomColor:"#000",
         marginBottom:10,
